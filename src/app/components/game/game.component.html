@@ -1,0 +1,53 @@
+<p>Enter your name:</p>
+<input type="text" #name>
+<button (click)="sayHello(name.value)">Say hello</button>
+{{messageForUser}}
+
+
+<p>Choose currency</p>
+<!--<div id="menu">-->
+<!--  <div class="menu">-->
+<!--    <div class="part">-->
+<!--      <div id="home" class="home" (click)="toggleMenu()">Home</div>-->
+<!--      <div class="dropmenu" [ngClass]="{ open: isMenuOpen }">-->
+<!--        <a href="#">First</a>-->
+<!--        <a href="#">Second</a>-->
+<!--        <a href="#">Third</a>-->
+<!--        <a href="#">Fourth</a>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--  </div>-->
+<!--</div>-->
+
+<div style="margin: 5%;">
+  <mat-form-field appearance="fill">
+    <mat-label>Default currency</mat-label>
+    <mat-select [(ngModel)]="defaultCurrency" (selectionChange)="onChange($event)">
+      <mat-option *ngFor="let currency of currencyList" [value]="currency">{{currency}}</mat-option>
+    </mat-select>
+  </mat-form-field>
+</div>
+
+
+<div style="margin: 5%;">
+  <mat-form-field appearance="fill">
+    <mat-label>Request currency</mat-label>
+    <mat-select [(ngModel)]="requestCurrency" (selectionChange)="onChange($event)">
+      <mat-option *ngFor="let currency of currencyList" [value]="currency">{{currency}}</mat-option>
+    </mat-select>
+  </mat-form-field>
+</div>
+<div>
+  <div *ngIf="defaultCurrency" class="currency-text">Enter value of  {{defaultCurrency}} </div>
+  <div *ngIf="requestCurrency" class="currency-text"> in {{requestCurrency}}:</div>
+</div>
+
+
+<!--<p>Enter value of PLN in EUR:</p>-->
+<input type="text" #currency>
+<!--<button (click)="check(currency.value, defaultCurrency)">Check</button>-->
+<button (click)="check(currency.value)">Check</button>
+{{result}}
+<br>
+<!--{{exchangeRate}}-->
+{{rates.PLN}}
