@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {HttpClient, HttpClientModule} from "@angular/common/http";
+import {HttpClient} from "@angular/common/http";
 import {map, Observable} from "rxjs";
 
 @Injectable({
@@ -10,8 +10,9 @@ export class CurrencyClientService {
   constructor(private httpClient: HttpClient) {
   }
 
-  public getCurrency(): Observable<Root> {
-    return this.httpClient.get<Root>('https://api.apilayer.com/exchangerates_data/latest?apikey=8xxNvawVURuAbXcFIVJHfDjAhsSQ91yo')
+  public getCurrency(base: string): Observable<Root> {
+    const url = `https://api.apilayer.com/exchangerates_data/latest?apikey=8xxNvawVURuAbXcFIVJHfDjAhsSQ91yo&base=${base}`;
+    return this.httpClient.get<Root>(url);
   }
 
   public getExchangeRate(baseCurrency: string, targetCurrency: string): Observable<number> {
@@ -25,6 +26,8 @@ export class CurrencyClientService {
 }
 
 export interface Rates {
+  [key: string]: number
+
   AED: number
   AFN: number
   ALL: number

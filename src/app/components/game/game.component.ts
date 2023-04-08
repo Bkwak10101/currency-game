@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {CurrencyClientService, Rates} from "../../services/currency-client.service";
-
+import {MatSelectChange} from '@angular/material/select';
 
 @Component({
   selector: 'app-game',
@@ -9,80 +9,57 @@ import {CurrencyClientService, Rates} from "../../services/currency-client.servi
 })
 
 
-
 export class GameComponent implements OnInit {
-
-  messageForUser:string = ''
+  messageForUser: string = ''
   rates: Rates = {} as Rates;
   result: String = '';
 
   defaultCurrency: string = '';
   requestCurrency: string = '';
-  exchangeRate: number = parseFloat(this.defaultCurrency)
+  base: string = 'PLN'
 
   constructor(private currencyClient: CurrencyClientService) {
   }
 
   ngOnInit() {
-    this.currencyClient.getCurrency().subscribe((data) => {
-      this.rates = data.rates;
-    });
   }
 
   sayHello(value: string) {
     this.messageForUser = 'Hello ' + value;
   }
 
-  // check(value: string, currency: string) {
-  //   // if(currency == this.rates.GBP){
-  //
-  //   if (parseFloat(value) > parseFloat(currency)) {
-  //   // if (parseFloat(value) > this.rates.PLN) {
-  //     this.result = 'Prompt amount too big';
-  //   }
-  //   if (parseFloat(value) < parseFloat(currency)) {
-  //   // if (parseFloat(value) < this.rates.PLN) {
-  //     this.result = 'Prompt amount too low'
-  //   }
-  //   if(parseFloat(value) == parseFloat(currency)) {
-  //   // if(parseFloat(value) == this.rates.PLN) {
-  //     this.result = 'The amount is exact. Congratulations!'
-  //   }
-  //
-  // }
-  check(value: string) {
-    // if(currency == this.rates.GBP){
-    //
-    // }
-    // switch(currency){
-    //   case this.rates.PLN:
-    //
-    // }
 
+  check(value: string) {
     if (parseFloat(value) > this.rates.PLN) {
       this.result = 'Prompt amount too big';
     }
     if (parseFloat(value) < this.rates.PLN) {
       this.result = 'Prompt amount too low'
     }
-    if(parseFloat(value) == this.rates.PLN) {
+    if (parseFloat(value) == this.rates.PLN) {
       this.result = 'The amount is exact. Congratulations!'
     }
-
   }
-  currencyList: any[] = ['PLN', 'USD', 'GBP', 'EUR'];
 
-  onChange(event: any){
-    if (!this.defaultCurrency) {
-      this.defaultCurrency = event.value
-      // this.currencyClient.getExchangeRate(this.defaultCurrency, 'PLN').subscribe(
-      //   rate => this.exchangeRate = rate
-      // );
-      // console.log("EXCHANGE RATE: " + this.exchangeRate)
+  currencyList: string[] = ['PLN', 'USD', 'GBP', 'EUR'];
 
+  onChange(event: MatSelectChange) {
+    if (this.defaultCurrency) {
+      this.defaultCurrency = event.value;
     } else {
       this.requestCurrency = event.value;
     }
+    this.base = event.value
+    this.currencyClient.getCurrency(this.base).subscribe((data) => {
+      this.rates = data.rates;
+    });
   }
 
+  onChangeRequestCurrency($event2: MatSelectChange) {
+    if (this.requestCurrency) {
+      this.requestCurrency = $event2.value;
+    } else {
+      this.requestCurrency = $event2.value;
+    }
+  }
 }

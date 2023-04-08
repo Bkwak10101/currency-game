@@ -1,51 +1,7 @@
-/*body{*/
-/*  margin: 0;*/
-/*}*/
-/*.home{*/
-/*  border-radius: 0 0 30px 5px;*/
-/*  padding: 20px 70px;*/
-/*  color:white;*/
-/*  font-size: 30px;*/
-/*  box-shadow: 0px 0px 1px black;*/
-/*  background-color: green;*/
-/*}*/
-/*.menu{*/
-/*  cursor: pointer;*/
-/*  position: relative;*/
-/*  display: inline-block;*/
-/*}*/
-/*.home:hover, #home:focus{*/
-/*  background-color: darkgreen;*/
-
-/*}*/
-/*.drop-menu{*/
-/*  display: none;*/
-/*  position: absolute;*/
-/*  box-shadow: 0px 1px 1px black;*/
-/*}*/
-/*.drop-menu a{*/
-/*  display: block;*/
-/*  text-decoration: none;*/
-/*  color: white;*/
-/*  background-color: green;*/
-/*  min-width: 175px;*/
-/*  font-size: 25px;*/
-/*  padding: 5px 0px 5px 10px;*/
-/*  box-shadow: 0px 0px 1px black;*/
-/*}*/
-/*.drop-menu a:hover{*/
-/*  background-color: darkgreen;*/
-/*}*/
-/*#menu{*/
-/*  width: 100%;*/
-/*}*/
-/*#menu part{*/
-/*  padding-left: 100px;*/
-/*}*/
-
-#menu {
-  position: relative;
-  display: inline-block;
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
 .menu {
@@ -100,5 +56,4 @@
 
 .currency-text {
   display: inline-block;
-  margin-right: 1vw;
 }
