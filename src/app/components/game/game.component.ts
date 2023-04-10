@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, HostBinding, OnInit} from '@angular/core';
 import {CurrencyClientService, Rates} from "../../services/currency-client.service";
 import {MatSelectChange} from '@angular/material/select';
 
@@ -10,24 +10,22 @@ import {MatSelectChange} from '@angular/material/select';
 
 
 export class GameComponent implements OnInit {
-  messageForUser: string = ''
+  @HostBinding('style.--text-color') textColor = '#2E3840';
+  @HostBinding('style.--background-color') backgroundColor = '#F9DBBB';
+  @HostBinding('style.--primary-accent-color') primaryAccentColor = '#4E6E81';
+  @HostBinding('style.--secondary-accent-color') secondaryAccentColor = '#FF0303';
   rates: Rates = {} as Rates;
   result: String = '';
 
   defaultCurrency: string = '';
   requestCurrency: string = '';
   base: string = 'PLN'
-
+  showHint: boolean = false;
   constructor(private currencyClient: CurrencyClientService) {
   }
 
   ngOnInit() {
   }
-
-  sayHello(value: string) {
-    this.messageForUser = 'Hello ' + value;
-  }
-
 
   check(value: string) {
     if (parseFloat(value) > this.rates.PLN) {

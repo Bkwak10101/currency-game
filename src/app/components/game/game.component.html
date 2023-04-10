@@ -1,37 +1,48 @@
-<p>Enter your name:</p>
-<input type="text" #name>
-<button (click)="sayHello(name.value)">Say hello</button>
-{{messageForUser}}
-
-
-<p>Choose currency</p>
-
-<div style="margin: 5%;">
-  <mat-form-field appearance="fill">
-    <mat-label>Default currency</mat-label>
-    <mat-select [(ngModel)]="defaultCurrency" (selectionChange)="onChange($event)">
-      <mat-option *ngFor="let currency of currencyList" [value]="currency">{{currency}}</mat-option>
-    </mat-select>
-  </mat-form-field>
-</div>
-
-
-<div style="margin: 5%;">
-  <mat-form-field appearance="fill">
-    <mat-label>Request currency</mat-label>
-    <mat-select [(ngModel)]="requestCurrency" (selectionChange)="onChangeRequestCurrency($event)">
-      <mat-option *ngFor="let currency of currencyList" [value]="currency">{{currency}}</mat-option>
-    </mat-select>
-  </mat-form-field>
-</div>
-<div>
-  <div *ngIf="defaultCurrency && requestCurrency" class="currency-text">
-    Enter value of {{defaultCurrency}} in {{requestCurrency}}:
+<div class="game">
+  <div class="info">
+    <h1>Currency Game</h1>
+    <h2>Choose currency</h2>
   </div>
-</div>
 
-<input type="text" #currency>
-<button (click)="check(currency.value)">Check</button>
-{{result}}
-<br>
-{{rates[requestCurrency]}}
+    <div class="drop">
+
+      <div>
+        <mat-form-field appearance="fill">
+          <mat-label>Default currency</mat-label>
+          <mat-select [(ngModel)]="defaultCurrency" (selectionChange)="onChange($event)">
+            <mat-option *ngFor="let currency of currencyList" [value]="currency">{{currency}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <div>
+        <mat-form-field appearance="fill">
+          <mat-label>Request currency</mat-label>
+          <mat-select [(ngModel)]="requestCurrency" (selectionChange)="onChangeRequestCurrency($event)">
+            <mat-option *ngFor="let currency of currencyList" [value]="currency">{{currency}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="currency-container">
+      <div *ngIf="defaultCurrency && requestCurrency" class="currency-text">
+        Enter value of {{defaultCurrency}} in {{requestCurrency}}:
+      </div>
+    </div>
+
+
+  <div class="prompt">
+    <input type="text" #currency>
+    <button (click)="check(currency.value)">Check</button>
+  </div>
+
+  <div *ngIf="result" class="result">
+    {{result}}
+  </div>
+
+  <div class="hint" (mouseenter)="showHint = true" (mouseleave)="showHint = false" [ngClass]="{'hint-active': showHint}">
+    <div class="hint-text" [ngClass]="{'hint-active': showHint}">Hint</div>
+    <div class="hint-value" [ngClass]="{'hint-active': showHint}">{{rates[requestCurrency]}}</div>
+  </div>
+
+</div>
